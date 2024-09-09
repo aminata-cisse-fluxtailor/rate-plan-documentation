@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'Sphinx Demo'
+project = 'Rate Plan Schema Documentation'
 copyright = 'Flux Tailor'
 author = 'Flux Tailor'
 release = '0.1'
