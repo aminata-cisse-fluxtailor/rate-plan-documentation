@@ -1,4 +1,4 @@
-Welcome to the Rate Plan Schema documentation!
+Welcome to the Rate Plan Schema documentation!!!
 ===================================
 
 .. toctree::
@@ -8,3 +8,5 @@ Welcome to the Rate Plan Schema documentation!
    xml-schema.md
    some-feature.md
    another-feature.md
+
+:-)
