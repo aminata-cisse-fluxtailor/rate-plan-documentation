@@ -1,0 +1,545 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Schema documentation for </title>
+      <link rel="stylesheet" href="docHtml.css" type="text/css" /><script type="text/javascript"><!--
+        
+      
+        var button_prefix = 'button_';
+        
+        /**
+        * Returns an element in the current HTML document.
+        *
+        * @param elementID Identifier of HTML element
+        * @return               HTML element object
+        */
+        function getElementObject(elementID) {
+            var elemObj = null;
+            if (document.getElementById) {
+                elemObj = document.getElementById(elementID);
+            }
+            return elemObj;
+        }
+        
+        /**
+        * Switches the state of a collapseable box, e.g.
+        * if it's opened, it'll be closed, and vice versa.
+        *
+        * @param boxID Identifier of box
+        */
+        function switchState(boxID) {
+            var boxObj = getElementObject(boxID);
+            var buttonObj = getElementObject(button_prefix + boxID);
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else if (boxObj.style.display == "none") {
+                // Box is closed, so open it
+                openBox(boxObj, buttonObj);
+            } else if (boxObj.style.display == "block") {
+                // Box is opened, so close it
+                closeBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+        * Opens a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function openBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "block";
+                
+                // Change text of button
+                if (boxObj.style.display == "block") {
+                    buttonObj.src = "img/btM.gif";
+                }
+            }
+        }
+        
+        /**
+        * Closes a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function closeBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "none";
+                
+                // Change text of button
+                if (boxObj.style.display == "none") {
+                    buttonObj.src = "img/btP.gif";
+                }
+            }
+        }
+    
+       function switchStateForAll(buttonObj, boxList) {
+            if (buttonObj == null) {
+                // button not found
+            } else if (buttonObj.value == "+") {
+                // Expand all
+                expandAll(boxList);
+                buttonObj.value = "-";
+            } else if (buttonObj.value == "-") {
+                // Collapse all
+                collapseAll(boxList);
+                buttonObj.value = "+";
+            }
+        }
+        
+        /**
+        * Closes all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function collapseAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                closeBox(boxObj, buttonObj);
+            }
+        }
+            
+        /**
+        * Open all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function expandAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                openBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+         * Update the message presented in the title of the html page.
+         * - If the documentation was splited by namespace we present something like: "Documentation for namespace 'ns'"
+         * - If the documentation was splited by location we present somehing like: "Documentation for 'Schema.xsd'"
+         * - If no split we always present: "Documentation for 'MainSchema.xsd'"
+         */
+        function updatePageTitle(message) {
+            top.document.title = message;
+        }
+        
+          
+                    
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function findAndFloat(id, x_displacement, y_displacement){
+
+            var element = getElementObject(id);            
+            
+            window[id + "_obj"] = element;
+            
+            if(document.layers) {
+               element.style = element;
+            }
+            
+            element.current_y = y_displacement;      
+            element.first_time = true;
+         
+            element.floatElement = function(){
+               // It may be closed by an user action.
+                
+               // Target X and Y coordinates.
+               var x, y;
+               
+               var myWidth = 0, myHeight = 0;
+               if( typeof( window.innerWidth ) == 'number' ) {
+                  //Non-IE
+                  myWidth = window.innerWidth;
+                  myHeight = window.innerHeight;
+               } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                  //IE 6+ in 'standards compliant mode'
+                  myWidth = document.documentElement.clientWidth;
+                  myHeight = document.documentElement.clientHeight;
+               } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                  //IE 4 compatible
+                  myWidth = document.body.clientWidth;
+                  myHeight = document.body.clientHeight;
+               }
+               
+               
+               x = myWidth - x_displacement;
+               
+               var ns = (navigator.appName.indexOf("Netscape") != -1);               
+               y = ns ? pageYOffset : document.documentElement && document.documentElement.scrollTop ? 
+                  document.documentElement.scrollTop : document.body.scrollTop;               
+               y = y + y_displacement;               
+               
+               // The current y is the current coordinate of the floating element.
+               // This should be at the limit the y target coordinate.
+               this.current_y += (y - this.current_y)/1.25;
+               
+               // Add the pixels constant after the values
+               // and move the element.
+               var px = document.layers ? "" : "px";
+               this.style.left =  x + px;
+               this.style.top =  this.current_y + px;
+                              
+               setTimeout(this.id + "_obj.floatElement()", 100);
+            }
+            
+            element.floatElement();
+            return element;
+          }
+
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function selectTOCGroupBy(id, isChunked, indexFileLocation, indexFileNamespace, indexFileComponent){
+
+            if (!isChunked) {
+             var selectIds = new Array('toc_group_by_namespace', 'toc_group_by_location', 'toc_group_by_component_type');
+             // Make all the tabs invisible.
+               for (i = 0; i < 3; i++){
+                  var tab = getElementObject(selectIds[i]);
+                  tab.style.display = 'none';
+               }
+               var selTab = getElementObject(id);
+               selTab.style.display = 'block';
+            } else {
+             if (id == 'toc_group_by_namespace') {
+               parent.indexFrame.location = indexFileNamespace;
+             } else  if (id == 'toc_group_by_location') {
+               parent.indexFrame.location = indexFileLocation;
+             } else  if (id == 'toc_group_by_component_type') {
+              parent.indexFrame.location = indexFileComponent;
+             }
+            }
+         }
+          
+
+    
+                        //--></script></head>
+   <body>
+      <h2><a id="INDEX">Table of Contents</a></h2>
+      <div class="toc">
+         <form action="none">
+            <div><span> Group by: <select id="selectTOC" onchange="selectTOCGroupBy(this.options[this.selectedIndex].value, true, 'rate_plan_data_input.indexList.html', 'rate_plan_data_input.indexListns.html', 'rate_plan_data_input.indexListcomp.html');">
+                     <option value="toc_group_by_namespace" selected="selected">Namespace</option>
+                     <option value="toc_group_by_location">Location</option>
+                     <option value="toc_group_by_component_type">Component Type</option></select></span></div>
+         </form>
+         <div class="level1" id="toc_group_by_namespace" style="display:block">
+            <div>
+               <div class="level2">
+                  <p><input id="button_boxIdNamespace1" type="image" alt="expand/collapse" src="img/btM.gif" onclick="switchState('boxIdNamespace1');" class="control" /><span class="indexGroupTitle">No namespace</span></p>
+                  <div id="boxIdNamespace1" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <table class="componentGroup">
+                                    <tbody>
+                                       <tr>
+                                          <td class="componentGroup"><input id="button_boxIdNamespace1Main_schema" type="image" alt="expand/collapse" src="img/btM.gif" onclick="switchState('boxIdNamespace1Main_schema');" class="control" /></td>
+                                          <td class="componentGroup">
+                                             <div class="componentGroupTitle">Main Schema</div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="componentGroup"></td>
+                                          <td class="componentGroup">
+                                             <div id="boxIdNamespace1Main_schema" class="componentGroup" style="display:block">
+                                                <div><b><a href="NO_NAMESPACE.html#rate_plan_data_input.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">rate_plan_data_input.xsd</a></b></div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <table class="componentGroup">
+                                    <tbody>
+                                       <tr>
+                                          <td class="componentGroup"><input id="button_boxIdNamespace1Included_schema" type="image" alt="expand/collapse" src="img/btM.gif" onclick="switchState('boxIdNamespace1Included_schema');" class="control" /></td>
+                                          <td class="componentGroup">
+                                             <div class="componentGroupTitle">Included Schemas</div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="componentGroup"></td>
+                                          <td class="componentGroup">
+                                             <div id="boxIdNamespace1Included_schema" class="componentGroup" style="display:block">
+                                                <div><b><a href="NO_NAMESPACE.html#charges.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">charges.xsd</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#common_definitions.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">common_definitions.xsd</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#eligibility_criteria.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">eligibility_criteria.xsd</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#eligibility_limits.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">eligibility_limits.xsd</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#holidays.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">holidays.xsd</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#minimum_charges.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">minimum_charges.xsd</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#nonmetered_service_charges.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">nonmetered_service_charges.xsd</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#other_fixed_charges.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">other_fixed_charges.xsd</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#rate_plan_user_output.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">rate_plan_user_output.xsd</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#rate_plans.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">rate_plans.xsd</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#seasons.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">seasons.xsd</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#service_tier_thresholds.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">service_tier_thresholds.xsd</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#statement_charges.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">statement_charges.xsd</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#tariff_book_charges.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">tariff_book_charges.xsd</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#tariff_book_leaf_ranges.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">tariff_book_leaf_ranges.xsd</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#tariff_statements.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">tariff_statements.xsd</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#time_of_use_periods.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">time_of_use_periods.xsd</a></b></div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <table class="componentGroup">
+                                    <tbody>
+                                       <tr>
+                                          <td class="componentGroup"><input id="button_boxIdNamespace1Element" type="image" alt="expand/collapse" src="img/btM.gif" onclick="switchState('boxIdNamespace1Element');" class="control" /></td>
+                                          <td class="componentGroup">
+                                             <div class="componentGroupTitle">Elements</div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="componentGroup"></td>
+                                          <td class="componentGroup">
+                                             <div id="boxIdNamespace1Element" class="componentGroup" style="display:block">
+                                                <div><b><a href="NO_NAMESPACE.html#charges" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">charges</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#customerScenario" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">customerScenario</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#eligibilityCriteria" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">eligibilityCriteria</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#eligibilityLimits" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">eligibilityLimits</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#holidays" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">holidays</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#measurementKind" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">measurementKind</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#minimumCharges" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">minimumCharges</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#nonmeteredServiceCharges" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">nonmeteredServiceCharges</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#otherFixedCharges" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">otherFixedCharges</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#ratePlanSelection" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">ratePlanSelection</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#ratePlans" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">ratePlans</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#scopeOfApplicability" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">scopeOfApplicability</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#seasons" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">seasons</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#serviceTierThresholds" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">serviceTierThresholds</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#statementCharges" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">statementCharges</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#summaryCharges" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">summaryCharges</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#tariffBook" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">tariffBook</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#tariffBookCharges" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">tariffBookCharges</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#tariffBookLeafRanges" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">tariffBookLeafRanges</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#tariffStatements" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">tariffStatements</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#timeOfUsePeriods" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">timeOfUsePeriods</a></b></div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <table class="componentGroup">
+                                    <tbody>
+                                       <tr>
+                                          <td class="componentGroup"><input id="button_boxIdNamespace1Complex_Type" type="image" alt="expand/collapse" src="img/btM.gif" onclick="switchState('boxIdNamespace1Complex_Type');" class="control" /></td>
+                                          <td class="componentGroup">
+                                             <div class="componentGroupTitle">Complex Types</div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="componentGroup"></td>
+                                          <td class="componentGroup">
+                                             <div id="boxIdNamespace1Complex_Type" class="componentGroup" style="display:block">
+                                                <div><b><a href="NO_NAMESPACE.html#EligibilityCriterionType" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">EligibilityCriterionType</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#EligibilityLimitType" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">EligibilityLimitType</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#MinimiumChargeType" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">MinimiumChargeType</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#NonmeteredServiceChargeType" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">NonmeteredServiceChargeType</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#OtherFixedChargeType" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">OtherFixedChargeType</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#RatePlanType" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">RatePlanType</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#SeasonType" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">SeasonType</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#ServiceTierThresholdType" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">ServiceTierThresholdType</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#TimeOfUsePeriodType" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">TimeOfUsePeriodType</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#chargeType" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">chargeType</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#constraintVariableType" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">constraintVariableType</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#scopeOfApplicabilityType" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">scopeOfApplicabilityType</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#tariffDocumentationType" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">tariffDocumentationType</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#thresholdType" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">thresholdType</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#timePeriodType" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">timePeriodType</a></b></div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <table class="componentGroup">
+                                    <tbody>
+                                       <tr>
+                                          <td class="componentGroup"><input id="button_boxIdNamespace1Simple_Type" type="image" alt="expand/collapse" src="img/btM.gif" onclick="switchState('boxIdNamespace1Simple_Type');" class="control" /></td>
+                                          <td class="componentGroup">
+                                             <div class="componentGroupTitle">Simple Types</div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="componentGroup"></td>
+                                          <td class="componentGroup">
+                                             <div id="boxIdNamespace1Simple_Type" class="componentGroup" style="display:block">
+                                                <div><b><a href="NO_NAMESPACE.html#HolidayNameType" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">HolidayNameType</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#NO_NAMESPACE_measurementKind" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">measurementKind</a></b></div>
+                                                <div><b><a href="NO_NAMESPACE.html#unitOfMeasure" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">unitOfMeasure</a></b></div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <table class="componentGroup">
+                                    <tbody>
+                                       <tr>
+                                          <td class="componentGroup"><input id="button_boxIdNamespace1Attribute" type="image" alt="expand/collapse" src="img/btM.gif" onclick="switchState('boxIdNamespace1Attribute');" class="control" /></td>
+                                          <td class="componentGroup">
+                                             <div class="componentGroupTitle">Attributes</div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="componentGroup"></td>
+                                          <td class="componentGroup">
+                                             <div id="boxIdNamespace1Attribute" class="componentGroup" style="display:block">
+                                                <div><b><a href="NO_NAMESPACE.html#ratePlanCodeUnique" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">@ratePlanCodeUnique</a></b></div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="footer">
+         <hr />
+         <div style="text-align:center">XML Schema documentation generated by <a href="http://www.oxygenxml.com" target="_parent"><span class="oXygenLogo"><span class="redX">&lt;</span>o<span class="redX">X</span>ygen<span class="redX">/&gt;</span></span></a><sup>®</sup> XML Editor.</div>
+      </div>
+   </body>
+</html>
