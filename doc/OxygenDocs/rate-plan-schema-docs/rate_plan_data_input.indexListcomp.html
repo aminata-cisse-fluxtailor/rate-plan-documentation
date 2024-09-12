@@ -241,7 +241,7 @@
       <h2><a id="INDEX">Table of Contents</a></h2>
       <div class="toc">
          <form action="none">
-            <div><span> Group by: <select id="selectTOC" onchange="selectTOCGroupBy(this.options[this.selectedIndex].value, true, 'rate_plan_main.indexList.html', 'rate_plan_main.indexListns.html', 'rate_plan_main.indexListcomp.html');">
+            <div><span> Group by: <select id="selectTOC" onchange="selectTOCGroupBy(this.options[this.selectedIndex].value, true, 'rate_plan_data_input.indexList.html', 'rate_plan_data_input.indexListns.html', 'rate_plan_data_input.indexListcomp.html');">
                      <option value="toc_group_by_namespace">Namespace</option>
                      <option value="toc_group_by_location">Location</option>
                      <option value="toc_group_by_component_type" selected="selected">Component Type</option></select></span></div>
@@ -270,7 +270,7 @@
                                     <td class="componentGroup"></td>
                                     <td class="componentGroup">
                                        <div id="Main_schema" class="componentGroup" style="display:block">
-                                          <div><b><a href="NO_NAMESPACE.html#rate_plan_main.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">rate_plan_main.xsd</a></b></div>
+                                          <div><b><a href="NO_NAMESPACE.html#rate_plan_data_input.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">rate_plan_data_input.xsd</a></b></div>
                                        </div>
                                     </td>
                                  </tr>
@@ -308,6 +308,7 @@
                                     <td class="componentGroup"></td>
                                     <td class="componentGroup">
                                        <div id="Included_schema" class="componentGroup" style="display:block">
+                                          <div><b><a href="NO_NAMESPACE.html#charges.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">charges.xsd</a></b></div>
                                           <div><b><a href="NO_NAMESPACE.html#common_definitions.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">common_definitions.xsd</a></b></div>
                                           <div><b><a href="NO_NAMESPACE.html#eligibility_criteria.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">eligibility_criteria.xsd</a></b></div>
                                           <div><b><a href="NO_NAMESPACE.html#eligibility_limits.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">eligibility_limits.xsd</a></b></div>
@@ -315,9 +316,14 @@
                                           <div><b><a href="NO_NAMESPACE.html#minimum_charges.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">minimum_charges.xsd</a></b></div>
                                           <div><b><a href="NO_NAMESPACE.html#nonmetered_service_charges.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">nonmetered_service_charges.xsd</a></b></div>
                                           <div><b><a href="NO_NAMESPACE.html#other_fixed_charges.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">other_fixed_charges.xsd</a></b></div>
+                                          <div><b><a href="NO_NAMESPACE.html#rate_plan_user_output.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">rate_plan_user_output.xsd</a></b></div>
                                           <div><b><a href="NO_NAMESPACE.html#rate_plans.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">rate_plans.xsd</a></b></div>
                                           <div><b><a href="NO_NAMESPACE.html#seasons.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">seasons.xsd</a></b></div>
                                           <div><b><a href="NO_NAMESPACE.html#service_tier_thresholds.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">service_tier_thresholds.xsd</a></b></div>
+                                          <div><b><a href="NO_NAMESPACE.html#statement_charges.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">statement_charges.xsd</a></b></div>
+                                          <div><b><a href="NO_NAMESPACE.html#tariff_book_charges.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">tariff_book_charges.xsd</a></b></div>
+                                          <div><b><a href="NO_NAMESPACE.html#tariff_book_leaf_ranges.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">tariff_book_leaf_ranges.xsd</a></b></div>
+                                          <div><b><a href="NO_NAMESPACE.html#tariff_statements.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">tariff_statements.xsd</a></b></div>
                                           <div><b><a href="NO_NAMESPACE.html#time_of_use_periods.xsd" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">time_of_use_periods.xsd</a></b></div>
                                        </div>
                                     </td>
@@ -356,6 +362,8 @@
                                     <td class="componentGroup"></td>
                                     <td class="componentGroup">
                                        <div id="Element" class="componentGroup" style="display:block">
+                                          <div><b><a href="NO_NAMESPACE.html#charges" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">charges</a></b></div>
+                                          <div><b><a href="NO_NAMESPACE.html#customerScenario" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">customerScenario</a></b></div>
                                           <div><b><a href="NO_NAMESPACE.html#eligibilityCriteria" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">eligibilityCriteria</a></b></div>
                                           <div><b><a href="NO_NAMESPACE.html#eligibilityLimits" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">eligibilityLimits</a></b></div>
                                           <div><b><a href="NO_NAMESPACE.html#holidays" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">holidays</a></b></div>
@@ -363,10 +371,17 @@
                                           <div><b><a href="NO_NAMESPACE.html#minimumCharges" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">minimumCharges</a></b></div>
                                           <div><b><a href="NO_NAMESPACE.html#nonmeteredServiceCharges" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">nonmeteredServiceCharges</a></b></div>
                                           <div><b><a href="NO_NAMESPACE.html#otherFixedCharges" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">otherFixedCharges</a></b></div>
+                                          <div><b><a href="NO_NAMESPACE.html#ratePlanSelection" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">ratePlanSelection</a></b></div>
                                           <div><b><a href="NO_NAMESPACE.html#ratePlans" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">ratePlans</a></b></div>
                                           <div><b><a href="NO_NAMESPACE.html#scopeOfApplicability" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">scopeOfApplicability</a></b></div>
                                           <div><b><a href="NO_NAMESPACE.html#seasons" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">seasons</a></b></div>
                                           <div><b><a href="NO_NAMESPACE.html#serviceTierThresholds" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">serviceTierThresholds</a></b></div>
+                                          <div><b><a href="NO_NAMESPACE.html#statementCharges" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">statementCharges</a></b></div>
+                                          <div><b><a href="NO_NAMESPACE.html#summaryCharges" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">summaryCharges</a></b></div>
+                                          <div><b><a href="NO_NAMESPACE.html#tariffBook" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">tariffBook</a></b></div>
+                                          <div><b><a href="NO_NAMESPACE.html#tariffBookCharges" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">tariffBookCharges</a></b></div>
+                                          <div><b><a href="NO_NAMESPACE.html#tariffBookLeafRanges" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">tariffBookLeafRanges</a></b></div>
+                                          <div><b><a href="NO_NAMESPACE.html#tariffStatements" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">tariffStatements</a></b></div>
                                           <div><b><a href="NO_NAMESPACE.html#timeOfUsePeriods" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">timeOfUsePeriods</a></b></div>
                                        </div>
                                     </td>
@@ -414,6 +429,7 @@
                                           <div><b><a href="NO_NAMESPACE.html#SeasonType" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">SeasonType</a></b></div>
                                           <div><b><a href="NO_NAMESPACE.html#ServiceTierThresholdType" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">ServiceTierThresholdType</a></b></div>
                                           <div><b><a href="NO_NAMESPACE.html#TimeOfUsePeriodType" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">TimeOfUsePeriodType</a></b></div>
+                                          <div><b><a href="NO_NAMESPACE.html#chargeType" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">chargeType</a></b></div>
                                           <div><b><a href="NO_NAMESPACE.html#constraintVariableType" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">constraintVariableType</a></b></div>
                                           <div><b><a href="NO_NAMESPACE.html#scopeOfApplicabilityType" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">scopeOfApplicabilityType</a></b></div>
                                           <div><b><a href="NO_NAMESPACE.html#tariffDocumentationType" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for &#34;No namespace&#34;')">tariffDocumentationType</a></b></div>
